@@ -1,72 +1,73 @@
-Project Title
-MyToken ERC-20 Compatible Smart Contract
+## Project Title
+**MyToken ERC-20 Compatible Smart Contract**
 
-Description
-The MyToken smart contract is built using Solidity and allows for the creation and management of a custom token. It includes features such as public variables for token details, a mapping for address balances, and functions to mint and burn tokens. The mint function increases the total supply and the balance of a specified address, while the burn function decreases them, ensuring that an address cannot burn more tokens than it holds.
+## Description
+The **MyToken** smart contract is written in Solidity and allows for the creation and management of a custom token. It features:
+- Public variables for token details such as name, abbreviation, and total supply.
+- A mapping to keep track of address balances.
+- Functions for minting and burning tokens:
+  - **Mint**: Increases both the total supply and the balance of a specified address.
+  - **Burn**: Decreases the total supply and the balance of a specified address, with a condition to prevent burning more tokens than held.
 
-Getting Started
-Installing
-To use this smart contract, follow these steps in Remix IDE:
+## Getting Started
 
-Open Remix IDE: Go to Remix IDE.
+### Installing
+To use the smart contract, follow these steps using **Remix IDE**:
 
-Create a New File: In the Remix file explorer, create a new file named MyToken.sol.
+1. **Open Remix IDE**: Visit [Remix IDE](https://remix.ethereum.org).
+2. **Create a New File**: In the file explorer, create a new file named `MyToken.sol`.
+3. **Copy the Contract Code**: Copy and paste the provided smart contract code into `MyToken.sol`.
 
-Copy the Contract Code: Copy and paste the following code into MyToken.sol:
+### Executing the Program
 
-Executing program
-Compile the Contract:
+#### Compile the Contract:
+1. Select Solidity compiler version `0.8.18`.
+2. Click the **Solidity Compiler** tab in Remix and press **Compile MyToken.sol**.
 
-Select the Solidity compiler version 0.8.18. Click on the Solidity Compiler tab in Remix and hit the Compile MyToken.sol button. Deploy the Contract:
+#### Deploy the Contract:
+1. Go to the **Deploy & Run Transactions** tab.
+2. Choose **Injected Web3** to deploy to a testnet or **JavaScript VM** for local testing.
+3. Click the **Deploy** button for `MyToken`.
 
-Go to the Deploy & Run Transactions tab. Select Injected Web3 as the environment to deploy to a testnet or JavaScript VM for local testing. Click the Deploy button for MyToken.
+#### Interact with the Contract:
+- After deployment, interact with the contract using the deployed contract's interface in Remix.
+- To mint tokens, use the **mint** function, providing an address and a value.
+- To burn tokens, use the **burn** function, providing an address and a value.
 
-Interact with the Contract:
-
--After deployment, you can interact with the contract using the deployed contract's interface in Remix. -To mint tokens, call the mint function with an address and a value. -To burn tokens, call the burn function with an address and a value.
-
+## Contract Code
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.26;
 
-/*
-       REQUIREMENTS
-    1. Your contract will have public variables that store the details about your coin (Token Name, Token Abbrv., Total Supply)
-    2. Your contract will have a mapping of addresses to balances (address => uint)
-    3. You will have a mint function that takes two parameters: an address and a value. 
-       The function then increases the total supply by that number and increases the balance 
-       of the “sender” address by that amount
-    4. Your contract will have a burn function, which works the opposite of the mint function, as it will destroy tokens. 
-       It will take an address and value just like the mint functions. It will then deduct the value from the total supply 
-       and from the balance of the “sender”.
-    5. Lastly, your burn function should have conditionals to make sure the balance of "sender" is greater than or equal 
-       to the amount that is supposed to be burned.
-*/
-
 contract MyToken {
-
     // public variables here
     string public Token_Name = "Republic credits";
     string public Token_Abbrv = "RC";
     uint public Total_Supply = 0;
+
     // mapping variable here
     mapping(address => uint) public Balance;
+
     // mint function
     function Mint(address _Space, uint _Capacity) public {
-    Total_Supply+= _Capacity;
-    Balance[_Space]+= _Capacity;
+        Total_Supply += _Capacity;
+        Balance[_Space] += _Capacity;
     }
-    // burn function
-    function Burn(address _Space,uint _Capacity) public {
-    if(Balance[_Space] >= _Capacity){
-    Total_Supply-= _Capacity;
-    Balance[_Space]-= _Capacity;
-    }
-    }
-} 
 
-Help
+    // burn function
+    function Burn(address _Space, uint _Capacity) public {
+        if (Balance[_Space] >= _Capacity) {
+            Total_Supply -= _Capacity;
+            Balance[_Space] -= _Capacity;
+        }
+    }
+}
+```
+
+## Help
 For common issues:
 
-Compilation Errors: Ensure you are using Solidity version 0.8.18. Deployment Issues: Check your Remix IDE environment and the network configuration.
+- **Compilation Errors**: Ensure that Solidity version `0.8.18` is selected.
+- **Deployment Issues**: Verify your Remix IDE environment and network settings.
 
-For additional help, refer to the Remix IDE documentation and resources.
+For further assistance, consult the [Remix IDE documentation](https://remix-ide.readthedocs.io/en/latest/).
